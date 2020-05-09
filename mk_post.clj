@@ -5,6 +5,7 @@
             [clojure.string :as str]))
 
 (def posts-dir "_posts")
+(def drafts-dir "_drafts")
 (def LA-timezone (java.time.ZoneId/of "America/Los_Angeles"))
 
 (defn- pattern-for [type]
@@ -23,12 +24,15 @@
     (throw (ex-info "" {:error "missing title"}))))
 
 (defn- title->file-name [date title]
-  (str (.format date (pattern-for :title)) "-" (str/join "-" (str/split title #"\s")) ".md"))
+  (str (.format date (pattern-for :title))
+       "-"
+       (str/join "-" (str/split (str/lower-case title) #"\s"))
+       ".md"))
 
 (defn- mk-file [date title]
   (->> title
       (title->file-name date)
-      (str posts-dir "/")
+      (str drafts-dir "/")
       io/file))
 
 (defn- mk-front-matter-date [date]
