@@ -21,7 +21,7 @@
 (defn- read-title []
   (if-let [title (first *command-line-args*)]
     title
-    (throw (ex-info "" {:error "missing title"}))))
+    (throw (ex-info "missing title" {:error "missing title"}))))
 
 (defn- title->file-name [date title]
   (str (.format date (pattern-for :title))
