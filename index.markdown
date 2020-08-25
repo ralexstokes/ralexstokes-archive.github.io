@@ -4,3 +4,5 @@
 
 layout: home
 ---
+
+[eth2 clock](/eth2-dashboard)
